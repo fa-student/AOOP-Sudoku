@@ -33,7 +33,7 @@ public class BoardPanel extends JPanel {
 	}
 	
     /** Background color of the board. */
-	private static final Color boardColor = new Color(211,255,253);
+	private static final Color boardColor = new Color(188,255,191);
 
     /** Board to be displayed. */
     private Board board;
@@ -111,11 +111,16 @@ public class BoardPanel extends JPanel {
         for (int x = 0; x<board.size(); x++) {
             for (int y = 0; y < board.size(); y++) {
                 int toDraw = board.getSquare(x, y).getValue();
-                if (toDraw != 0) {
+                if (toDraw == -1) {
+                    System.out.println("this is rue now");
+                    g.setColor(Color.MAGENTA);
+                    g.fillRect(x*squareSize, y*squareSize, squareSize, squareSize);
+                }
+                else if (toDraw != 0) {
+                    g.setColor(Color.BLACK);
                     g.drawString(toDraw + "", x * height / board.size() + 10, y * height / board.size() + 20);
                 }
             }
         }
     }
-
 }

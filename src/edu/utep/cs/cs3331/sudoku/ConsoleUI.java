@@ -3,7 +3,6 @@ package edu.utep.cs.cs3331.sudoku;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
-//import sudoku_demo1.hw1_sudoku;
 
 public class ConsoleUI {
 	

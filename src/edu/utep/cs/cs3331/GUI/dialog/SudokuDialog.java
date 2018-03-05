@@ -1,6 +1,4 @@
 package edu.utep.cs.cs3331.GUI.dialog;
-//FIXME test
-
 
 import java.awt.*;
 import java.net.URL;
@@ -27,6 +25,7 @@ import edu.utep.cs.cs3331.sudoku.Board;
 @SuppressWarnings("serial")
 public class SudokuDialog extends JFrame {
     public static int inputVal;
+    public static int x,y;
     /** Default dimension of the dialog. */
     private final static Dimension DEFAULT_SIZE = new Dimension(310, 430);
 
@@ -65,12 +64,11 @@ public class SudokuDialog extends JFrame {
      * @param y 0-based column index of the clicked square.
      */
     private void boardClicked(int x, int y) {
-        // WRITE YOUR CODE HERE ...
-        if (!board.updateBoard(x, y, inputVal)) {
-            showMessage("bad selection");
-        }
-        //repaint();;
+        this.x = x;
+        this.y = y;
+        board.getSquare(x,y).setVal(-1);
         boardPanel.repaint();
+        board.getSquare(x,y).setVal(0);
         showMessage(String.format("Board clicked: x = %d, y = %d",  x, y));
     }
     
@@ -79,9 +77,14 @@ public class SudokuDialog extends JFrame {
      * @param number Clicked number (1-9), or 0 for "X".
      */
     private void numberClicked(int number) {
-        // WRITE YOUR CODE HERE ...
-        this.inputVal = number;
         showMessage("Number clicked: " + number);
+         if (!board.updateBoard(x, y, number)) {
+            showMessage("bad selection");
+        }
+        boardPanel.repaint();
+        if (board.isSolved()) {
+            showMessage("you won!");
+        }
     }
     
     /**
@@ -92,13 +95,10 @@ public class SudokuDialog extends JFrame {
      * @param size Requested puzzle size, either 4 or 9.
      */
     private void newClicked(int size) {
-        // WRITE YOUR CODE HERE ...
-        //FIXME rewrite this to start a new board
-        //FIXME reset the array
         board = new Board(size);
         boardPanel.setBoard(board);
         boardPanel.repaint();
-        showMessage("New clicked: " + size);
+        showMessage("New clicked: " + board.size());
     }
 
     /**
