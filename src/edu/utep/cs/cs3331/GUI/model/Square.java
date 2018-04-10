@@ -1,8 +1,5 @@
 package edu.utep.cs.cs3331.GUI.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Square {
     private int x;

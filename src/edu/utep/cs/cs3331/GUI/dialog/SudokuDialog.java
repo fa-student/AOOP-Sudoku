@@ -3,13 +3,7 @@ package edu.utep.cs.cs3331.GUI.dialog;
 import java.awt.*;
 import java.net.URL;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import edu.utep.cs.cs3331.GUI.dialog.BoardPanel;
 //import sudoku.model.Board;
@@ -24,8 +18,7 @@ import edu.utep.cs.cs3331.sudoku.Board;
  */
 @SuppressWarnings("serial")
 public class SudokuDialog extends JFrame {
-    public static int inputVal;
-    public static int x,y;
+    private static int x,y;
     /** Default dimension of the dialog. */
     private final static Dimension DEFAULT_SIZE = new Dimension(310, 430);
 
@@ -66,9 +59,8 @@ public class SudokuDialog extends JFrame {
     private void boardClicked(int x, int y) {
         this.x = x;
         this.y = y;
-        board.getSquare(x,y).setVal(-1);
+        //TODO needs to show selection
         boardPanel.repaint();
-        board.getSquare(x,y).setVal(0);
         showMessage(String.format("Board clicked: x = %d, y = %d",  x, y));
     }
     
@@ -79,8 +71,8 @@ public class SudokuDialog extends JFrame {
     private void numberClicked(int number) {
         showMessage("Number clicked: " + number);
          if (!board.updateBoard(x, y, number)) {
-            showMessage("bad selection");
-        }
+             showMessage("bad selection");
+         }
         boardPanel.repaint();
         if (board.isSolved()) {
             showMessage("you won!");
@@ -95,9 +87,13 @@ public class SudokuDialog extends JFrame {
      * @param size Requested puzzle size, either 4 or 9.
      */
     private void newClicked(int size) {
-        board = new Board(size);
-        boardPanel.setBoard(board);
-        boardPanel.repaint();
+        JFrame confirm = new JFrame();
+        int answer = JOptionPane.showConfirmDialog(confirm, "You are about to start a new game");
+        if (answer == JOptionPane.YES_OPTION) {
+            board = new Board(size);
+            boardPanel.setBoard(board);
+            boardPanel.repaint();
+        }
         showMessage("New clicked: " + board.size());
     }
 
