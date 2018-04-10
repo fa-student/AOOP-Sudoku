@@ -54,6 +54,13 @@ public class BoardPanel extends JPanel {
         });
     }
 
+    /**
+     *
+     * @return
+     */
+    public int getSquareSize(){
+        return squareSize;
+    }
     /** Set the board to be displayed. */
     public void setBoard(Board board) {
     	this.board = board;
@@ -111,15 +118,10 @@ public class BoardPanel extends JPanel {
         for (int x = 0; x<board.size(); x++) {
             for (int y = 0; y < board.size(); y++) {
                 int toDraw = board.getSquare(x, y).getValue();
-                if (toDraw == -1) {
-                    System.out.println("this is rue now");
-                    g.setColor(Color.MAGENTA);
-                    g.fillRect(x*squareSize, y*squareSize, squareSize, squareSize);
-                }
-                else if (toDraw != 0) {
+                if (toDraw != 0) {
                     g.setColor(Color.BLACK);
                     g.drawString(toDraw + "", x * height / board.size() + 10, y * height / board.size() + 20);
-                }
+               }
             }
         }
     }
