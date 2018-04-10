@@ -1,13 +1,14 @@
 package edu.utep.cs.cs3331.sudoku;
 
 import edu.utep.cs.cs3331.GUI.model.Square;
+import edu.utep.cs.cs3331.solver.create;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Board {
+public class Board implements BoardInterface{
 	public int size;
 
     public Board() {
@@ -18,6 +19,7 @@ public class Board {
     private List<Square> squares = null;
 
     public Board(int size) {
+        create solved = new create();
         this.size = size;
         squares= new ArrayList<>(size * size);
         for (int x = 0; x < size; x++) { // store in column-major
@@ -25,6 +27,7 @@ public class Board {
                 squares.add(new Square(x, y));
             }
         }
+        solved.genGrid(this);
     }
 
     /**
@@ -129,23 +132,10 @@ public class Board {
         for (int i = 0; i < Math.sqrt(size); i++) {
             for (int j = 0; j < Math.sqrt(size); j++) {
                 if ((getSquare(x - (x % (int) Math.sqrt(size)) + i, y - (y % (int) Math.sqrt(size)) +j)).getValue() == val) {
-               // (x [x - (x % (int) Math.sqrt(size)) + i] [y - (y % (int) Math.sqrt(size)) +j] == val) {
-                    //if this is true don't place value
                     return false;
                 }
             }
         }
-//        int row= initY-initY%(int)Math.sqrt(size);
-//        int col = initX-initX%(int)Math.sqrt(size);
-//        //FIXME this doesn't work
-//        for (int i = 0; i < (int)Math.sqrt(size); i++) {
-//            for (int j = 0; j < (int)Math.sqrt(size); j++) {
-//                if (getSquare(row*i, col*j) .getValue()== val) {
-//                    return false;
-//                }
-//            }
-//        }
-
         return true;
     }
 
