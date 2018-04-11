@@ -1,9 +1,12 @@
 package edu.utep.cs.cs3331.GUI.dialog;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.net.URL;
 
 import javax.swing.*;
+//import javax.swing.JMenuItem;
 
 import edu.utep.cs.cs3331.GUI.dialog.BoardPanel;
 //import sudoku.model.Board;
@@ -29,6 +32,10 @@ public class SudokuDialog extends JFrame {
 
     /** Special panel to display a Sudoku board. */
     private BoardPanel boardPanel;
+
+    JButton newGame, endGame, solveable;
+
+    JMenuItem menuItem, menuItem2, menuItem3;
 
     /** Message bar to display various messages. */
     private JLabel msgBar = new JLabel("");
@@ -109,7 +116,21 @@ public class SudokuDialog extends JFrame {
     private void configureUI() {
         setIconImage(createImageIcon("sudoku.png").getImage());
         setLayout(new BorderLayout());
-        
+
+        JPanel South = new JPanel();
+        South.setLayout(new BorderLayout());
+
+        JPanel North = new JPanel();
+        North.setLayout(new BorderLayout());
+
+        JPanel menu = createMenu();
+        menu.setBorder(BorderFactory.createEmptyBorder(10,16,0,16));
+        add(menu, BorderLayout.NORTH);
+
+        JPanel toolBar = createToolBar();
+        toolBar.setBorder(BorderFactory.createEmptyBorder(10,16,0,16));
+        North.add(toolBar, BorderLayout.NORTH);
+
         JPanel buttons = makeControlPanel();
         // boarder: top, left, bottom, right
         buttons.setBorder(BorderFactory.createEmptyBorder(10,16,0,16));
@@ -157,6 +178,60 @@ public class SudokuDialog extends JFrame {
         content.add(newButtons);
         content.add(numberButtons);
         return content;
+    }
+
+    private JPanel createMenu() {
+    	JPanel menus = new JPanel();;
+		JMenuBar menuBar = new JMenuBar();
+
+		JMenu menu = new JMenu("Menu");
+		menu.setMnemonic(KeyEvent.VK_G);
+		menu.getAccessibleContext().setAccessibleDescription("Game menu");
+		menuBar.add(menu);
+
+		menuItem = new JMenuItem("New Game", KeyEvent.VK_N);
+		menuItem.setIcon(createImageIcon("newGame.png"));
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
+		menuItem.getAccessibleContext().setAccessibleDescription("Play a new game");
+		//menuItem.addActionListener(e->{ int size = selectSize(); newClicked(size);});
+
+		menuItem2 = new JMenuItem("Check Game", KeyEvent.VK_C);
+		menuItem2.setIcon(createImageIcon("checkGame.png"));
+		menuItem2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.ALT_MASK));
+		menuItem2.getAccessibleContext().setAccessibleDescription("Check if game is solveable");
+
+		menuItem3 = new JMenuItem("Solve Game", KeyEvent.VK_S);
+		menuItem3.setIcon(createImageIcon("solveGame.png"));
+		menuItem3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
+		menuItem3.getAccessibleContext().setAccessibleDescription("Solve game");
+
+		menu.add(menuItem);
+		menu.add(menuItem2);
+		menu.add(menuItem3);
+		setJMenuBar(menuBar);
+		setVisible(true);
+		return menus;
+    }
+
+    private JPanel createToolBar() {
+    	JPanel panel = new JPanel();
+        JToolBar toolBar = new JToolBar();
+        toolBar.setFloatable(false);
+        panel.add(toolBar, BorderLayout.PAGE_START);
+
+		newGame = new JButton(createImageIcon("play.png"));
+		newGame.setToolTipText("Play new game");
+		toolBar.add(newGame);
+
+		endGame = new JButton(createImageIcon("exit.png"));
+		endGame.setToolTipText("End current game");
+		toolBar.add(endGame);
+
+		solveable = new JButton(createImageIcon("checkmark.png"));
+		solveable.setToolTipText("Checks if current board is solveable");
+		toolBar.add(solveable);
+
+        return panel;
     }
 
     /** Create an image icon from the given image file. */
