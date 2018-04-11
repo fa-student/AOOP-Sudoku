@@ -141,6 +141,7 @@ public class Board implements BoardInterface{
 
 	//public static Random rand = new Random();
 
+
     /**
      * check if the borad is solved
      * @return  true if it is solved
