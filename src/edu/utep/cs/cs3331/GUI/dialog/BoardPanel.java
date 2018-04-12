@@ -120,7 +120,7 @@ public class BoardPanel extends JPanel {
                 int toDraw = board.getSquare(x, y).getValue();
                 if (toDraw != 0) {
                     g.setColor(Color.BLACK);
-                    g.drawString(toDraw + "", x * height / board.size() + 10, y * height / board.size() + 20);
+                    g.drawString(" "+toDraw + " ", x * height / board.size() + 10, y * height / board.size() + 20);
                }
             }
         }

@@ -117,8 +117,8 @@ public class SudokuDialog extends JFrame {
         setIconImage(createImageIcon("sudoku.png").getImage());
         setLayout(new BorderLayout());
 
-        JPanel South = new JPanel();
-        South.setLayout(new BorderLayout());
+        JPanel center = new JPanel();
+        center.setLayout(new BorderLayout());
 
         JPanel North = new JPanel();
         North.setLayout(new BorderLayout());
@@ -134,17 +134,21 @@ public class SudokuDialog extends JFrame {
         JPanel buttons = makeControlPanel();
         // boarder: top, left, bottom, right
         buttons.setBorder(BorderFactory.createEmptyBorder(10,16,0,16));
-        add(buttons, BorderLayout.NORTH);
-        
+        center.add(buttons, BorderLayout.NORTH);
+
         JPanel board = new JPanel();
         board.setBorder(BorderFactory.createEmptyBorder(10,16,0,16));
         board.setLayout(new GridLayout(1,1));
         board.add(boardPanel);
-        add(board, BorderLayout.CENTER);
-        
+        center.add(board, BorderLayout.CENTER);
+
         msgBar.setBorder(BorderFactory.createEmptyBorder(10,16,10,0));
-        add(msgBar, BorderLayout.SOUTH);
-        showMessage("welcome");
+        center.add(msgBar, BorderLayout.SOUTH);
+
+        add(center, BorderLayout.CENTER);
+        add(North, BorderLayout.NORTH);
+
+        //setupListeners();
     }
       
     /** Create a control panel consisting of new and number buttons. */
