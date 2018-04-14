@@ -23,7 +23,7 @@ import edu.utep.cs.cs3331.sudoku.Board;
 public class SudokuDialog extends JFrame {
     private static int x,y;
     /** Default dimension of the dialog. */
-    private final static Dimension DEFAULT_SIZE = new Dimension(310, 430);
+    private final static Dimension DEFAULT_SIZE = new Dimension(313, 505);
 
     private final static String IMAGE_DIR = "/image/";
 
@@ -194,7 +194,7 @@ public class SudokuDialog extends JFrame {
 		menuBar.add(menu);
 
 		menuItem = new JMenuItem("New Game", KeyEvent.VK_N);
-		menuItem.setIcon(createImageIcon("newGame.png"));
+		menuItem.setIcon(createImageIcon("new.png"));
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription("Play a new game");
 		//menuItem.addActionListener(e->{ int size = selectSize(); newClicked(size);});
@@ -227,11 +227,11 @@ public class SudokuDialog extends JFrame {
 		newGame.setToolTipText("Play new game");
 		toolBar.add(newGame);
 
-		endGame = new JButton(createImageIcon("exit.png"));
+		endGame = new JButton(createImageIcon("play.png"));
 		endGame.setToolTipText("End current game");
 		toolBar.add(endGame);
 
-		solveable = new JButton(createImageIcon("checkmark.png"));
+		solveable = new JButton(createImageIcon("play.png"));
 		solveable.setToolTipText("Checks if current board is solveable");
 		toolBar.add(solveable);
 
