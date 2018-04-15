@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Board implements BoardInterface{
 	public int size;
+	private boolean boardGenerated;
 
     public Board() {
 		size = 0;
@@ -17,6 +18,7 @@ public class Board implements BoardInterface{
 
     /** Squares of this board. */
     private List<Square> squares = null;
+    private List<Square> clone = null;
 
     public Board(int size) {
         create solved = new create();
@@ -27,7 +29,17 @@ public class Board implements BoardInterface{
                 squares.add(new Square(x, y));
             }
         }
-        solved.genGrid(this);
+        solved.genGrid(this, 0, 0);
+        boardGenerated = true;
+        clone = clnToStatic(squares);
+    }
+
+    public List<Square> clnToStatic(List<Square> squares) {
+        List<Square> cln = new ArrayList<>();
+        for (Square sqr : squares) {
+            cln.add(new Square(sqr.getX(), sqr.getY(), sqr.getValue()));
+        }
+        return cln;
     }
 
     /**
@@ -68,6 +80,9 @@ public class Board implements BoardInterface{
      */
 	public boolean updateBoard(int x, int y, int val) {
         ConsoleUI msg = new ConsoleUI();
+        if  (boardGenerated && clone.get((x*size) +y).getValue() != 0) {
+            return false;
+        }
         if (val > size) {
             return false;
         }

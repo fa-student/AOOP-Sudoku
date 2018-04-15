@@ -16,6 +16,12 @@ public class Square {
         this.y = y;
     }
 
+    public Square(int x, int y, int value) {
+        this.x = x;
+        this.y = y;
+        this.value = value;
+    }
+
     /**
      *
      * @return
