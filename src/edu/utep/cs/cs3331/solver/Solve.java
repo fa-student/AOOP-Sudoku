@@ -1,5 +1,9 @@
 package edu.utep.cs.cs3331.solver;
 
-public class Solve {
+import edu.utep.cs.cs3331.sudoku.Board;
 
+public class Solve extends Board {
+    public void solve() {
+        squares = cloneSolved;
+    }
 }

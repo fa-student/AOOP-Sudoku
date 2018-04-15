@@ -17,8 +17,9 @@ public class Board {
 	}
 
     /** Squares of this board. */
-    private List<Square> squares = null;
-    private List<Square> clone = null;
+    protected List<Square> squares = null;
+    protected List<Square> cloneSolved = null;
+    protected List<Square> clonePartial = null;
 
     public Board(int size) {
         strategy = new create();
@@ -31,7 +32,9 @@ public class Board {
         }
         strategy.genGrid(this, 0, 0);
         boardGenerated = true;
-        clone = clnToStatic(squares);
+        cloneSolved = clnToStatic(squares);
+        clonePartial = clnToStatic(squares);
+        //remove(clonePartial);
     }
 
     public List<Square> clnToStatic(List<Square> squares) {
@@ -80,7 +83,7 @@ public class Board {
      */
 	public boolean updateBoard(int x, int y, int val) {
         ConsoleUI msg = new ConsoleUI();
-        if  (boardGenerated && clone.get((x*size) +y).getValue() != 0) {
+        if  (boardGenerated && clonePartial.get((x*size) +y).getValue() != 0) {
             return false;
         }
         if (val > size) {
