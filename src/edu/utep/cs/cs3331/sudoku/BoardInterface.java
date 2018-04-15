@@ -5,5 +5,6 @@ import edu.utep.cs.cs3331.GUI.model.Square;
 import java.util.List;
 
 public interface BoardInterface {
-        List<Square> squares = null;
+        boolean genGrid(Board g, int x, int y);
+        //List<Square> squares = null;
 }

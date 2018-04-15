@@ -8,10 +8,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Board implements BoardInterface{
+public class Board {
 	public int size;
 	private boolean boardGenerated;
-
+    private BoardInterface strategy;
     public Board() {
 		size = 0;
 	}
@@ -21,7 +21,7 @@ public class Board implements BoardInterface{
     private List<Square> clone = null;
 
     public Board(int size) {
-        create solved = new create();
+        strategy = new create();
         this.size = size;
         squares= new ArrayList<>(size * size);
         for (int x = 0; x < size; x++) { // store in column-major
@@ -29,7 +29,7 @@ public class Board implements BoardInterface{
                 squares.add(new Square(x, y));
             }
         }
-        solved.genGrid(this, 0, 0);
+        strategy.genGrid(this, 0, 0);
         boardGenerated = true;
         clone = clnToStatic(squares);
     }
