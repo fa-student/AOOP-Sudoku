@@ -9,7 +9,6 @@ import java.net.URL;
 import javax.swing.*;
 //import javax.swing.JMenuItem;
 
-import edu.utep.cs.cs3331.GUI.dialog.BoardPanel;
 //import sudoku.model.Board;
 import edu.utep.cs.cs3331.sudoku.Board;
 
@@ -36,7 +35,7 @@ public class SudokuDialog extends JFrame {
     /** Special panel to display a Sudoku board. */
     private BoardPanel boardPanel;
 
-    JButton newGame, exitGame, solveable;
+    JButton newGame, exitGame, solveNow;
 
     JMenuItem menuItem, menuItem2, menuItem3;
 
@@ -207,7 +206,7 @@ public class SudokuDialog extends JFrame {
 		menuItem2 = new JMenuItem("Check Game", KeyEvent.VK_C);
 		menuItem2.setIcon(createImageIcon("checkGame.png"));
 		menuItem2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.ALT_MASK));
-		menuItem2.getAccessibleContext().setAccessibleDescription("Check if game is solveable");
+		menuItem2.getAccessibleContext().setAccessibleDescription("Check if game is solveNow");
 
 		menuItem3 = new JMenuItem("Solve Game", KeyEvent.VK_S);
 		menuItem3.setIcon(createImageIcon("solveGame.png"));
@@ -236,9 +235,9 @@ public class SudokuDialog extends JFrame {
 		exitGame.setToolTipText("End current game");
 		toolBar.add(exitGame);
 
-		solveable = new JButton(createImageIcon("solveable.png"));
-		solveable.setToolTipText("Checks if current board is solveable");
-		toolBar.add(solveable);
+		solveNow = new JButton(createImageIcon("solveable.png"));
+		solveNow.setToolTipText("Checks if current board is solveNow");
+		toolBar.add(solveNow);
 
         return panel;
     }
@@ -246,16 +245,7 @@ public class SudokuDialog extends JFrame {
 
     private void setupActions() {
 
-        newGame.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent click) {
-                int input = JOptionPane.showConfirmDialog(null, "Start a new game?", "New Game?", JOptionPane.YES_NO_OPTION);
-                if (input == JOptionPane.YES_OPTION) {
-                    board = new Board(board.size);
-                    boardPanel.setBoard(board);
-                    boardPanel.repaint();
-                }
-            }
-        });
+        newGame.addActionListener(this::actionPerformed);
 
         exitGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent click) {
@@ -266,17 +256,27 @@ public class SudokuDialog extends JFrame {
             }
         });
 
-        menuItem.addActionListener(new ActionListener() {
+        solveNow.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent click) {
-                int input = JOptionPane.showConfirmDialog(null, "Start a new game?", "New Game?", JOptionPane.YES_NO_OPTION);
+                int input = JOptionPane.showConfirmDialog(null, "Do you want to solve the game?", "Solve it all?", JOptionPane.YES_NO_OPTION);
                 if (input == JOptionPane.YES_OPTION) {
-                    board = new Board(board.size);
-                    boardPanel.setBoard(board);
+                    board.solve();
                     boardPanel.repaint();
                 }
             }
         });
 
+        menuItem.addActionListener(this::actionPerformed);
+
+    }
+
+    public void actionPerformed(ActionEvent click) {
+        int input = JOptionPane.showConfirmDialog(null, "Start a new game?", "New Game?", JOptionPane.YES_NO_OPTION);
+        if (input == JOptionPane.YES_OPTION) {
+            board = new Board(board.size);
+            boardPanel.setBoard(board);
+            boardPanel.repaint();
+        }
     }
 
     /** Create an image icon from the given image file. */

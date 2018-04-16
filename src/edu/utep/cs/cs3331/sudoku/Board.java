@@ -6,7 +6,6 @@ import edu.utep.cs.cs3331.solver.create;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Board {
 	public int size;
@@ -175,5 +174,8 @@ public class Board {
 		return true;
 	}
 
+	public void solve() {
+        squares = cloneSolved;
+    }
 
 }
