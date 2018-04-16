@@ -29,7 +29,15 @@ public class Board {
                 squares.add(new Square(x, y));
             }
         }
-        strategy.genGrid(this, 0, 0);
+        for(int j=0;j<size-1;j++){
+            for(int k=0;k<size-1;k++){
+                strategy.genGrid(this, j, k);
+            }
+        }
+
+        //strategy.genGrid(this, 0, 0);
+
+
         boardGenerated = true;
         cloneSolved = clnToStatic(squares);
         strategy.remove(squares);
