@@ -174,6 +174,10 @@ public class Board {
 		return true;
 	}
 
+    /**
+     * This is the only new method in this class for hw4
+     * This just assigns the completed board to the working board
+     */
 	public void solve() {
         squares = cloneSolved;
     }

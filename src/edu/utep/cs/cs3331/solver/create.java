@@ -10,7 +10,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class create implements BoardInterface {
 
-
+    /**
+     * Generate full board
+     * @param g board to manipulate
+     * @param x starting point x
+     * @param y starting point y
+     * @return  used for recursion true if successful
+     */
         @Override
         public boolean genGrid(Board g, int x, int y) {
 
@@ -44,10 +50,13 @@ public class create implements BoardInterface {
             return true;
         }
 
-
-        public void remove(List<Square> grid) {
+    /**
+     * remove some (25) numbers from grid
+     * @param grid  number grid to manipulate
+     */
+    public void remove(List<Square> grid) {
             List<Integer> used = new ArrayList<>();
-            for (int i = 0; i < grid.size() - 22; i++) {
+            for (int i = 0; i < grid.size() - 25; i++) {
                 int val = ThreadLocalRandom.current().nextInt(0, grid.size());
                 if (!used.contains(val)) {
                     used.add(val);
