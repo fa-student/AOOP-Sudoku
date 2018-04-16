@@ -245,7 +245,7 @@ public class SudokuDialog extends JFrame {
 
 
     private void setupActions() {
-        
+
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent click) {
                 int input = JOptionPane.showConfirmDialog(null, "Start a new game?", "New Game?", JOptionPane.YES_NO_OPTION);
