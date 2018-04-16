@@ -18,7 +18,7 @@ public class Board implements BoardInterface{
     /** Squares of this board. */
     private List<Square> squares = null;
 
-    public Board(int size) {
+    public Board(int size){
         create solved = new create();
         this.size = size;
         squares= new ArrayList<>(size * size);
@@ -27,7 +27,10 @@ public class Board implements BoardInterface{
                 squares.add(new Square(x, y));
             }
         }
-        solved.genGrid(this);
+        /*
+                solved.genGrid(this,0,0);
+        */
+
     }
 
     /**
@@ -128,7 +131,7 @@ public class Board implements BoardInterface{
     public boolean checkSubBlock(Square s, int val) {
         int x = s.getX();
         int y = s.getY();
-//comment this in
+        //comment this in
         for (int i = 0; i < Math.sqrt(size); i++) {
             for (int j = 0; j < Math.sqrt(size); j++) {
                 if ((getSquare(x - (x % (int) Math.sqrt(size)) + i, y - (y % (int) Math.sqrt(size)) +j)).getValue() == val) {
