@@ -1,5 +1,6 @@
 package edu.utep.cs.cs3331.solver;
 
+import edu.utep.cs.cs3331.GUI.model.Square;
 import edu.utep.cs.cs3331.sudoku.Board;
 import edu.utep.cs.cs3331.sudoku.BoardInterface;
 
@@ -44,4 +45,17 @@ public class create implements BoardInterface {
         }
 
 
+        public void remove(List<Square> grid) {
+            List<Integer> used = new ArrayList<>();
+            for (int i = 0; i < grid.size() - 22; i++) {
+                int val = ThreadLocalRandom.current().nextInt(0, grid.size());
+                if (!used.contains(val)) {
+                    used.add(val);
+                    grid.get(val).setVal(0);
+                }
+                else {
+                    i--;
+                }
+            }
+        }
 }

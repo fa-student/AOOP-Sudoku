@@ -32,8 +32,8 @@ public class Board {
         strategy.genGrid(this, 0, 0);
         boardGenerated = true;
         cloneSolved = clnToStatic(squares);
+        strategy.remove(squares);
         clonePartial = clnToStatic(squares);
-        //remove(clonePartial);
     }
 
     public List<Square> clnToStatic(List<Square> squares) {
