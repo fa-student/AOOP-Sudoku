@@ -29,15 +29,7 @@ public class Board {
                 squares.add(new Square(x, y));
             }
         }
-        for(int j=0;j<size-1;j++){
-            for(int k=0;k<size-1;k++){
-                strategy.genGrid(this, j, k);
-            }
-        }
-
-        //strategy.genGrid(this, 0, 0);
-
-
+        strategy.genGrid(this, 0, 0);
         boardGenerated = true;
         cloneSolved = clnToStatic(squares);
         strategy.remove(squares);
@@ -89,7 +81,6 @@ public class Board {
      * @return  true if it was properly inserted
      */
 	public boolean updateBoard(int x, int y, int val) {
-        ConsoleUI msg = new ConsoleUI();
         if  (boardGenerated && clonePartial.get((x*size) +y).getValue() != 0) {
             return false;
         }
