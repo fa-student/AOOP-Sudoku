@@ -2,6 +2,7 @@ package edu.utep.cs.cs3331.GUI.dialog;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.net.URL;
 
@@ -23,17 +24,19 @@ import edu.utep.cs.cs3331.sudoku.Board;
 public class SudokuDialog extends JFrame {
     private static int x,y;
     /** Default dimension of the dialog. */
-    private final static Dimension DEFAULT_SIZE = new Dimension(310, 430);
+    private final static Dimension DEFAULT_SIZE = new Dimension(313, 505);
 
     private final static String IMAGE_DIR = "/image/";
 
     /** Sudoku board. */
     private Board board;
 
+
+
     /** Special panel to display a Sudoku board. */
     private BoardPanel boardPanel;
 
-    JButton newGame, endGame, solveable;
+    JButton newGame, exitGame, solveable;
 
     JMenuItem menuItem, menuItem2, menuItem3;
 
@@ -148,9 +151,11 @@ public class SudokuDialog extends JFrame {
         add(center, BorderLayout.CENTER);
         add(North, BorderLayout.NORTH);
 
-        //setupListeners();
+        setupActions();
     }
-      
+
+
+
     /** Create a control panel consisting of new and number buttons. */
     private JPanel makeControlPanel() {
     	JPanel newButtons = new JPanel(new FlowLayout());
@@ -194,7 +199,7 @@ public class SudokuDialog extends JFrame {
 		menuBar.add(menu);
 
 		menuItem = new JMenuItem("New Game", KeyEvent.VK_N);
-		menuItem.setIcon(createImageIcon("newGame.png"));
+		menuItem.setIcon(createImageIcon("new.png"));
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription("Play a new game");
 		//menuItem.addActionListener(e->{ int size = selectSize(); newClicked(size);});
@@ -227,15 +232,51 @@ public class SudokuDialog extends JFrame {
 		newGame.setToolTipText("Play new game");
 		toolBar.add(newGame);
 
-		endGame = new JButton(createImageIcon("exit.png"));
-		endGame.setToolTipText("End current game");
-		toolBar.add(endGame);
+		exitGame = new JButton(createImageIcon("endgamepng.png"));
+		exitGame.setToolTipText("End current game");
+		toolBar.add(exitGame);
 
-		solveable = new JButton(createImageIcon("checkmark.png"));
+		solveable = new JButton(createImageIcon("solveable.png"));
 		solveable.setToolTipText("Checks if current board is solveable");
 		toolBar.add(solveable);
 
         return panel;
+    }
+
+
+    private void setupActions() {
+        
+        newGame.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent click) {
+                int input = JOptionPane.showConfirmDialog(null, "Start a new game?", "New Game?", JOptionPane.YES_NO_OPTION);
+                if (input == JOptionPane.YES_OPTION) {
+                    board = new Board(board.size);
+                    boardPanel.setBoard(board);
+                    boardPanel.repaint();
+                }
+            }
+        });
+
+        exitGame.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent click) {
+                int input = JOptionPane.showConfirmDialog(null, "Do you want to close game?", "End Game?", JOptionPane.YES_NO_OPTION);
+                if (input == JOptionPane.YES_OPTION) {
+                    System.exit(1);
+                }
+            }
+        });
+
+        menuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent click) {
+                int input = JOptionPane.showConfirmDialog(null, "Start a new game?", "New Game?", JOptionPane.YES_NO_OPTION);
+                if (input == JOptionPane.YES_OPTION) {
+                    board = new Board(board.size);
+                    boardPanel.setBoard(board);
+                    boardPanel.repaint();
+                }
+            }
+        });
+
     }
 
     /** Create an image icon from the given image file. */
